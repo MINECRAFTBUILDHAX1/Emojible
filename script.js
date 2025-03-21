@@ -1,89 +1,57 @@
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  flex-direction: column;
-  text-align: center;
+// Sample emojis and answers
+const puzzles = [
+    { emoji: '🦁👑', answer: 'The Lion King' },
+    { emoji: '👑💍', answer: 'The Lord of the Rings' },
+    { emoji: '🍔🍟👨‍🍳', answer: 'Fast Food Chef' }
+];
+
+let currentPuzzle = 0;
+
+// Function to load the puzzle for today
+function loadPuzzle() {
+    const puzzle = puzzles[currentPuzzle];
+    document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
+    document.getElementById('answer-input').value = '';
+    document.getElementById('message').textContent = '';
+
+    // Show message for the next puzzle
+    const nextPuzzleMessage = document.getElementById('next-puzzle-message');
+    nextPuzzleMessage.style.display = 'block';
 }
 
-#game-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  width: 300px;
+// Event listener for the submit button
+document.getElementById('submit-btn').addEventListener('click', function() {
+    const userAnswer = document.getElementById('answer-input').value.trim();
+    const correctAnswer = puzzles[currentPuzzle].answer;
+
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        document.getElementById('message').textContent = 'Correct! 🎉';
+        currentPuzzle++;
+        if (currentPuzzle < puzzles.length) {
+            setTimeout(loadPuzzle, 1000);
+        } else {
+            document.getElementById('message').textContent = 'You finished all the puzzles! 🏆';
+        }
+    } else {
+        document.getElementById('message').textContent = 'Try again! ❌';
+    }
+});
+
+// Function to reset the puzzle at midnight (local time zone)
+function resetPuzzleAtMidnight() {
+    const now = new Date();
+    const nextMidnight = new Date(now);
+    nextMidnight.setHours(24, 0, 0, 0); // Set the time to midnight
+
+    const timeUntilMidnight = nextMidnight - now; // Time remaining
+    setTimeout(function() {
+        currentPuzzle = 0;  // Reset puzzle index for the new day
+        loadPuzzle(); // Reload the puzzle for the new day
+    }, timeUntilMidnight);
 }
 
-h1 {
-  font-size: 24px;
-  color: #333;
-}
+// Call reset function at midnight to show the next puzzle
+resetPuzzleAtMidnight();
 
-#emoji-puzzle {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-input {
-  padding: 10px;
-  width: 80%;
-  margin-bottom: 10px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-#message {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #333;
-}
-
-#next-puzzle-message {
-  font-size: 18px;
-  color: #888;
-  margin-top: 20px;
-}
-
-footer {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 14px;
-}
-
-footer ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-footer li {
-  display: inline;
-  margin: 0 15px;
-}
-
-footer a {
-  text-decoration: none;
-  color: #4CAF50;
-}
-
-footer a:hover {
-  color: #333;
-  text-decoration: underline;
-}
+// Initial puzzle load
+loadPuzzle();
