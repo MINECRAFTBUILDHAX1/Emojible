@@ -12,9 +12,14 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Content higher up */
+            align-items: center; /* Align items in the center */
             height: 100vh;
             text-align: center;
+            min-height: 100vh; /* Make sure the body takes at least the full height of the screen */
+display: flex;
+flex-direction: column;
+justify-content: space-between; /* Push content up and footer down */
+
         }
 
         #game-container {
@@ -155,7 +160,7 @@
     </footer>
 
     <script>
-        // Sample emojis and answers
+        // Sample     emojis and answers
         const puzzles = [
             { emoji: '🦁👑', answer: 'The Lion King' }
         ];
@@ -163,36 +168,48 @@
         let currentPuzzle = 0;
 
         // Function to calculate progress
-        function calculateProgress(userAnswer, correctAnswer) {
-            const userAnswerLower = userAnswer.toLowerCase();
-            const correctAnswerLower = correctAnswer.toLowerCase();
-            let similarity = 0;
+       function calculateProgress(userAnswer, correctAnswer) {
+    const userAnswerLower = userAnswer.toLowerCase().trim();
+    const correctAnswerLower = correctAnswer.toLowerCase().trim();
+    let similarity = 0;
 
-            // Compare letter by letter
-            for (let i = 0; i < Math.min(userAnswerLower.length, correctAnswerLower.length); i++) {
-                if (userAnswerLower[i] === correctAnswerLower[i]) {
-                    similarity++;
-                }
-            }
+    // If the user's answer is longer than the correct one, it's considered incorrect
+    if (userAnswerLower !== correctAnswerLower) {
+        // Limit progress to less than 100 if answer is incorrect
+        return Math.min((similarity / correctAnswerLower.length) * 100, 99); // Cap at 99 for incorrect answers
+    }
 
-            return (similarity / correctAnswerLower.length) * 100;
+    // Compare letter by letter
+    for (let i = 0; i < Math.min(userAnswerLower.length, correctAnswerLower.length); i++) {
+        if (userAnswerLower[i] === correctAnswerLower[i]) {
+            similarity++;
         }
+    }
 
-  function updateProgressBar(progress, message) {
+    // Ensure it's never 100% if the answer is wrong or has extra letters
+    return (similarity / correctAnswerLower.length) * 100;
+}
+
+
+ function updateProgressBar(progress, message) {
     const progressBar = document.getElementById('progress-bar');
     progressBar.style.width = `${progress}%`;
 
     if (progress === 100) {
         progressBar.style.backgroundColor = 'green';
         document.getElementById('message').textContent = 'Correct! 🎉';
+    } else if (progress === 99) {
+        progressBar.style.backgroundColor = 'yellow'; // Yellow for "almost correct"
+        document.getElementById('message').textContent = 'Almost there! ⚠️';
     } else if (progress >= 50) {
         progressBar.style.backgroundColor = 'orange';
-        document.getElementById('message').textContent = message || 'Almost there!';
+        document.getElementById('message').textContent = message || 'Keep going!';
     } else {
         progressBar.style.backgroundColor = 'red';
         document.getElementById('message').textContent = 'Try again! ❌';
     }
 }
+
 
         function loadPuzzle() {
             const puzzle = puzzles[currentPuzzle];
