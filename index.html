@@ -6,6 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emojible</title>
     <style>
+        /* Help Icon */
+.help-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #4CAF50;
+}
+
+/* Help Popup */
+.help-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+}
+
+.popup-content h2 {
+    margin-top: 0;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #e53935;
+}
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -34,6 +83,8 @@ justify-content: space-between; /* Push content up and footer down */
             flex-direction: column;
             align-items: center;
             margin-top: 50px;
+           
+
         }
 
         h1 {
@@ -123,6 +174,9 @@ justify-content: space-between; /* Push content up and footer down */
 </head>
 
 <body>
+     <!-- Help Icon -->
+<div class="help-icon" onclick="showHelp()">&#63;</div>
+    
     <div id="game-container">
         <h1>Welcome to Emojible!</h1>
         <div id="emoji-puzzle">
@@ -136,7 +190,18 @@ justify-content: space-between; /* Push content up and footer down */
         </div>
         <p id="next-puzzle-message"></p> <!-- Come back tomorrow message -->
     </div>
-
+    <!-- Help Popup -->
+<div id="help-popup" class="help-popup">
+    <div class="popup-content">
+        <h2>Help</h2>
+        <p>The progress bar shows if your answer is correct:</p>
+        <ul>
+            <li>Fully green and "Correct!" means your answer is almost there, but it may have too many letters.</li>
+        </ul>
+        <button onclick="closeHelp()">Close</button>
+    </div>
+</div>
+    
     <!-- Footer -->
     <footer>
         <ul>
@@ -144,7 +209,7 @@ justify-content: space-between; /* Push content up and footer down */
             <li><a href="terms.html" target="_blank">Terms of Service</a></li>
             <li><a href="mailto:mmajcherczykolczak@gmail.com?subject=Enquiry%20about%20Emojible">Contact</a></li>
         </ul>
-    </footer>
+    </footer>        
 
     <script>
         // Sample emojis and answers
@@ -254,7 +319,18 @@ justify-content: space-between; /* Push content up and footer down */
         // Initial setup
         checkForMidnightReset();
         checkIfPuzzleCompleted();
+        // Function to show the help popup
+function showHelp() {
+    document.getElementById('help-popup').style.display = 'flex';
+}
+
+// Function to close the help popup
+function closeHelp() {
+    document.getElementById('help-popup').style.display = 'none';
+}
+
     </script>
+    
 </body>
 
 </html>
