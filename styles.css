@@ -1,57 +1,79 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    flex-direction: column;
-    text-align: center;
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#game-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 300px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 h1 {
-    font-size: 24px;
-    color: #333;
+  font-size: 3em;  /* Bigger header */
+  color: #4CAF50;
 }
 
-#emoji-puzzle {
-    font-size: 36px;
-    margin-bottom: 20px;
+p {
+  font-size: 1.2em;
 }
 
-input {
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
+.puzzle-section {
+  text-align: center;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;  /* Move it higher on the page */
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.puzzle {
+  font-size: 3em;  /* Larger puzzle area */
+  margin-top: 20px;
 }
 
-button:hover {
-    background-color: #45a049;
+#next-puzzle-message {
+  font-size: 1.5em;  /* Make the message more visible */
+  color: #888;
+  margin-top: 20px;
+  font-weight: bold;
 }
 
-#message {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #333;
+/* Footer */
+footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+footer ul {
+  list-style-type: none;
+}
+
+footer li {
+  display: inline;
+  margin: 0 15px;
+}
+
+footer a {
+  text-decoration: none;
+  color: #4CAF50;
+  font-size: 1.2em;
+}
+
+footer a:hover {
+  color: #333;
+  text-decoration: underline;
 }
