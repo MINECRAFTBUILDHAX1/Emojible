@@ -1,34 +1,57 @@
-// Initialize the puzzle data (replace with your actual puzzles)
+// Sample emojis and answers
 const puzzles = [
-  { emoji: "🦁🌍", answer: "Lion World" },
-  { emoji: "🚀🌕", answer: "Rocket to the Moon" },
-  { emoji: "🍕🎉", answer: "Pizza Party" }
+    { emoji: '🦁👑', answer: 'The Lion King' },
+    { emoji: '👑💍', answer: 'The Lord of the Rings' },
+    { emoji: '🍔🍟👨‍🍳', answer: 'Fast Food Chef' }
 ];
 
-// Get today's date and calculate the puzzle for today
-const today = new Date();
-const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-const puzzleForToday = puzzles[dayOfYear % puzzles.length];  // Loop through puzzles
+let currentPuzzle = 0;
 
-// Display the puzzle on the page
-const puzzleElement = document.getElementById("puzzle");
-puzzleElement.textContent = puzzleForToday.emoji;
+// Function to load the puzzle for today
+function loadPuzzle() {
+    const puzzle = puzzles[currentPuzzle];
+    document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
+    document.getElementById('answer-input').value = '';
+    document.getElementById('message').textContent = '';
 
-// Display the "Come back tomorrow" message
-const nextPuzzleMessage = document.getElementById("next-puzzle-message");
-nextPuzzleMessage.style.display = "block";  // Ensure this message is visible
-
-// To reset puzzle at midnight (local timezone)
-function resetPuzzleAtMidnight() {
-  const now = new Date();
-  const nextMidnight = new Date(now);
-  nextMidnight.setHours(24, 0, 0, 0);  // Set the time to midnight
-
-  const timeUntilMidnight = nextMidnight - now; // Calculate the time remaining
-  setTimeout(function() {
-    location.reload();  // Refresh the page at midnight to show a new puzzle
-  }, timeUntilMidnight);
+    // Show message for the next puzzle
+    const nextPuzzleMessage = document.getElementById('next-puzzle-message');
+    nextPuzzleMessage.style.display = 'block';
 }
 
-// Call the reset function to reload puzzle at midnight
+// Event listener for the submit button
+document.getElementById('submit-btn').addEventListener('click', function() {
+    const userAnswer = document.getElementById('answer-input').value.trim();
+    const correctAnswer = puzzles[currentPuzzle].answer;
+
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        document.getElementById('message').textContent = 'Correct! 🎉';
+        currentPuzzle++;
+        if (currentPuzzle < puzzles.length) {
+            setTimeout(loadPuzzle, 1000);
+        } else {
+            document.getElementById('message').textContent = 'You finished all the puzzles! 🏆';
+        }
+    } else {
+        document.getElementById('message').textContent = 'Try again! ❌';
+    }
+});
+
+// Function to reset the puzzle at midnight (local time zone)
+function resetPuzzleAtMidnight() {
+    const now = new Date();
+    const nextMidnight = new Date(now);
+    nextMidnight.setHours(24, 0, 0, 0); // Set the time to midnight
+
+    const timeUntilMidnight = nextMidnight - now; // Time remaining
+    setTimeout(function() {
+        currentPuzzle = 0;  // Reset puzzle index for the new day
+        loadPuzzle(); // Reload the puzzle for the new day
+    }, timeUntilMidnight);
+}
+
+// Call reset function at midnight to show the next puzzle
 resetPuzzleAtMidnight();
+
+// Initial puzzle load
+loadPuzzle();
