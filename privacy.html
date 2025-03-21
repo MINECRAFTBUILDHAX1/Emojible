@@ -4,11 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Notice</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        footer {
+            margin-top: 30px;
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #4CAF50;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        #back-home-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #back-home-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
 </head>
 <body>
-    <h1>Privacy Notice</h1>
-    <p>Your privacy is important to us. This document explains how we collect and use your personal data.</p>
-    <p>We do not collect any personal data from you unless you provide it voluntarily.</p>
-    <p>By using this website, you agree to our Privacy Policy.</p>
+    <div class="content">
+        <h1>Privacy Notice</h1>
+        <p>Your privacy is important to us. We only use your data to enhance your experience with Emojible.</p>
+        <button id="back-home-btn" onclick="window.location.href = 'index.html';">Back to Home</button>
+    </div>
 </body>
 </html>
