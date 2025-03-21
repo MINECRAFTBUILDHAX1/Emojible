@@ -251,14 +251,7 @@ justify-content: space-between; /* Push content up and footer down */
             }
         }
 
-        function loadPuzzle() {
-            const puzzle = puzzles[currentPuzzle];
-            document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
-            document.getElementById('answer-input').value = '';
-            document.getElementById('message').textContent = '';
-            document.getElementById('progress-bar').style.width = '0%';
-            document.getElementById('next-puzzle-message').textContent = '';
-        }
+        
 
         function submitAnswer() {
             const userAnswer = document.getElementById('answer-input').value.trim();
@@ -328,6 +321,42 @@ function showHelp() {
 function closeHelp() {
     document.getElementById('help-popup').style.display = 'none';
 }
+// Store today's date in localStorage
+function storeTodayPuzzle() {
+    const currentDate = new Date().toLocaleDateString(); // Get today's date in MM/DD/YYYY format
+    localStorage.setItem('currentDate', currentDate);
+}
+
+// Get the current puzzle based on the date
+function getTodayPuzzle() {
+    const currentDate = new Date().toLocaleDateString();
+    const storedDate = localStorage.getItem('currentDate');
+
+    // If the date is different, reset the puzzle for the day
+    if (storedDate !== currentDate) {
+        localStorage.setItem('puzzleIndex', Math.floor(Math.random() * puzzles.length)); // Randomize the puzzle each day
+        storeTodayPuzzle();
+    }
+}
+
+// Get puzzle index
+function getPuzzleIndex() {
+    return localStorage.getItem('puzzleIndex') || 0; // Default to the first puzzle if not found
+}
+
+function loadPuzzle() {
+    const puzzle = puzzles[getPuzzleIndex()];  // Use the puzzle of the day
+    document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
+    document.getElementById('answer-input').value = '';
+    document.getElementById('message').textContent = '';
+    document.getElementById('progress-bar').style.width = '0%';
+    document.getElementById('next-puzzle-message').textContent = '';
+}
+
+window.onload = function () {
+    getTodayPuzzle();  // Call this to check and update the puzzle when the page loads
+    loadPuzzle();      // Load the puzzle for today
+};
 
     </script>
     
