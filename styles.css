@@ -1,65 +1,76 @@
-/* Global Styles */
-* {
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
   text-align: center;
-  margin-bottom: 30px;
+}
+
+#game-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 
 h1 {
-  font-size: 3em;  /* Bigger header */
-  color: #4CAF50;
+  font-size: 24px;
+  color: #333;
 }
 
-p {
-  font-size: 1.2em;
+#emoji-puzzle {
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
-.puzzle-section {
-  text-align: center;
-  padding: 30px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;  /* Move it higher on the page */
+input {
+  padding: 10px;
+  width: 80%;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
 }
 
-.puzzle {
-  font-size: 3em;  /* Larger puzzle area */
-  margin-top: 20px;
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#message {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
 }
 
 #next-puzzle-message {
-  font-size: 1.5em;  /* Make the message more visible */
+  font-size: 18px;
   color: #888;
   margin-top: 20px;
-  font-weight: bold;
 }
 
-/* Footer */
 footer {
-  margin-top: 40px;
+  margin-top: 30px;
   text-align: center;
+  font-size: 14px;
 }
 
 footer ul {
   list-style-type: none;
+  padding: 0;
 }
 
 footer li {
@@ -70,7 +81,6 @@ footer li {
 footer a {
   text-decoration: none;
   color: #4CAF50;
-  font-size: 1.2em;
 }
 
 footer a:hover {
