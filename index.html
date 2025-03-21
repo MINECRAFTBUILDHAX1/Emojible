@@ -219,7 +219,7 @@ justify-content: space-between; /* Push content up and footer down */
             document.getElementById('progress-bar').style.width = '0%';
             document.getElementById('next-puzzle-message').textContent = '';
         }
-        function submitAnswer() {
+ function submitAnswer() {
     const userAnswer = document.getElementById('answer-input').value.trim();
     const correctAnswer = puzzles[currentPuzzle].answer;
 
@@ -237,11 +237,21 @@ justify-content: space-between; /* Push content up and footer down */
         localStorage.setItem('userAnswer', userAnswer); // Save user answer
         currentPuzzle++;
         if (currentPuzzle < puzzles.length) {
-            setTimeout(loadPuzzle, 1000);
+            setTimeout(loadPuzzle, 1000); // Load next puzzle after 1 second
         } else {
             document.getElementById('message').textContent = 'You finished the puzzle! 🏆';
             document.getElementById('next-puzzle-message').textContent = 'Come back tomorrow for another puzzle!';
         }
+    } else {
+        // If the answer is incorrect, do not change puzzle but keep allowing submissions
+        document.getElementById('message').textContent = 'Incorrect, try again! ❌';
+    }
+
+    // Clear the input field so the user can continue typing
+    document.getElementById('answer-input').value = '';
+    document.getElementById('answer-input').focus(); // Focus on the input field after each submission
+}
+
     }
 }
 
