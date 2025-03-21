@@ -13,7 +13,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align content higher up */
             height: 100vh;
             flex-direction: column;
             text-align: center;
@@ -28,6 +28,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 50px;
         }
 
         h1 {
@@ -84,7 +85,7 @@
         #progress-bar {
             height: 100%;
             width: 0%;
-            background-color: orange;
+            background-color: red; /* Default to red */
             border-radius: 5px;
         }
 
@@ -134,8 +135,8 @@
     <!-- Footer -->
     <footer>
         <ul>
-            <li><a href="#">Privacy Notice</a></li>
-            <li><a href="#">Terms of Service</a></li>
+            <li><a href="privacy.html" target="_blank">Privacy Notice</a></li>
+            <li><a href="terms.html" target="_blank">Terms of Service</a></li>
             <li><a href="mailto:mmajcherczykolczak@gmail.com?subject=Enquiry%20about%20Emojible">Contact</a></li>
         </ul>
     </footer>
@@ -193,6 +194,11 @@
             const userAnswer = document.getElementById('answer-input').value.trim();
             const correctAnswer = puzzles[currentPuzzle].answer;
 
+            if (!userAnswer) {
+                updateProgressBar(0, 'Try again! ❌');
+                return;
+            }
+
             const progress = calculateProgress(userAnswer, correctAnswer);
             updateProgressBar(progress);
 
@@ -243,7 +249,6 @@
         // Initial setup
         checkForMidnightReset();
         checkIfPuzzleCompleted();
-
     </script>
 </body>
 
