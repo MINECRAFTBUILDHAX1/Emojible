@@ -219,39 +219,29 @@ justify-content: space-between; /* Push content up and footer down */
             document.getElementById('progress-bar').style.width = '0%';
             document.getElementById('next-puzzle-message').textContent = '';
         }
-         function submitAnswer() {
-            const userAnswer = document.getElementById('answer-input').value.trim();
-            const correctAnswer = puzzles[currentPuzzle].answer;
-        
-            if (!userAnswer) {
-                // Full red progress bar on empty input
-                updateProgressBar(0, 'Try again! ❌');
-                return;
-            }
-        
-            const progress = calculateProgress(userAnswer, correctAnswer);
-            updateProgressBar(progress);
-        
-            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                localStorage.setItem('puzzleCompleted', 'true');
-                localStorage.setItem('userAnswer', userAnswer); // Save user answer
-                currentPuzzle++;
-                if (currentPuzzle < puzzles.length) {
-                    setTimeout(loadPuzzle, 1000); // Load next puzzle after 1 second
-                } else {
-                    document.getElementById('message').textContent = 'You finished the puzzle! 🏆';
-                    document.getElementById('next-puzzle-message').textContent = 'Come back tomorrow for another puzzle!';
-                }
-            } else {
-                // If the answer is incorrect, do not change puzzle but keep allowing submissions
-                document.getElementById('message').textContent = 'Incorrect, try again! ❌';
-            }
-        
-            // Clear the input field so the user can continue typing
-            document.getElementById('answer-input').value = '';
-            document.getElementById('answer-input').focus(); // Focus on the input field after each submission
-        }
+          function submitAnswer() {
+    const userAnswer = document.getElementById('answer-input').value.trim();
+    const correctAnswer = puzzles[currentPuzzle].answer;
 
+    if (!userAnswer) {
+        // Full red progress bar on empty input
+        updateProgressBar(0, 'Try again! ❌');
+        return;
+    }
+
+    const progress = calculateProgress(userAnswer, correctAnswer);
+    updateProgressBar(progress);
+
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        localStorage.setItem('puzzleCompleted', 'true');
+        localStorage.setItem('userAnswer', userAnswer); // Save user answer
+        currentPuzzle++;
+        if (currentPuzzle < puzzles.length) {
+            setTimeout(loadPuzzle, 1000);
+        } else {
+            document.getElementById('message').textContent = 'You finished the puzzle! 🏆';
+            document.getElementById('next-puzzle-message').textContent = 'Come back tomorrow for another puzzle!';
+        }
     }
 }
 
