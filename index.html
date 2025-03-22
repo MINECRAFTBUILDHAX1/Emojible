@@ -287,6 +287,72 @@ justify-content: space-between; /* Push content up and footer down */
         });
 
         // Check if the puzzle has been completed before
+          function checkIfPuzzleCompleted() {
+    const completedTime = localStorage.getItem('puzzleCompletedTime');
+    if (completedTime) {
+        const timePassed = Date.now() - parseInt(completedTime, 10);
+        const remainingTime = 24 * 60 * 60 * 1000 - timePassed;
+
+        if (remainingTime > 0) {
+            disablePuzzle(remainingTime);
+            return;
+        } else {
+            localStorage.removeItem('puzzleCompletedTime'); // Reset for the new day
+        }
+    }
+    loadPuzzle();
+}
+
+function disablePuzzle(remainingTime) {
+    document.getElementById('answer-input').disabled = true;
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('next-puzzle-message').textContent = 'Next puzzle in: ';
+
+    const countdownElement = document.createElement('span');
+    document.getElementById('next-puzzle-message').appendChild(countdownElement);
+
+    function updateTimer() {
+        const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+        countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+
+        if (remainingTime > 0) {
+            remainingTime -= 1000;
+            setTimeout(updateTimer, 1000);
+        } else {
+            localStorage.removeItem('puzzleCompletedTime');
+            location.reload(); // Reload to unlock the puzzle
+        }
+    }
+    updateTimer();
+}
+
+// Modify the function where the puzzle is completed
+function submitAnswer() {
+    const userAnswer = document.getElementById('answer-input').value.trim();
+    const correctAnswer = puzzles[currentPuzzle].answer;
+
+    if (!userAnswer) {
+        updateProgressBar(0, 'Try again! ❌');
+        return;
+    }
+
+    const progress = calculateProgress(userAnswer, correctAnswer);
+    updateProgressBar(progress);
+
+    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+        localStorage.setItem('puzzleCompletedTime', Date.now().toString());
+        disablePuzzle(24 * 60 * 60 * 1000); // Start 24-hour timer
+    }
+}
+
+window.onload = function () {
+    getTodayPuzzle();
+    checkIfPuzzleCompleted();
+};
+
+        
         function checkIfPuzzleCompleted() {
             const completed = localStorage.getItem('puzzleCompleted');
             if (completed === 'true') {
