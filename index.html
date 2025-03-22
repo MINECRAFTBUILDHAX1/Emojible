@@ -6,176 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emojible</title>
     <style>
-        /* Help Icon */
-.help-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #4CAF50;
-}
-
-/* Help Popup */
-.help-popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.popup-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-}
-
-.popup-content h2 {
-    margin-top: 0;
-}
-
-.popup-content button {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.popup-content button:hover {
-    background-color: #e53935;
-}
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Align items in the center */
-            height: 100vh;
-            flex-direction: column;
-            text-align: center;
-            min-height: 100vh; /* Make sure the body takes at least the full height of the screen */
-display: flex;
-flex-direction: column;
-justify-content: space-between; /* Push content up and footer down */
-
-        }
-
-        #game-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-           
-
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #333;
-        }
-
-        #emoji-puzzle {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        input {
-            padding: 10px;
-            width: 80%;
-            margin-bottom: 10px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #message {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #333;
-        }
-
-        #next-puzzle-message {
-            font-size: 18px;
-            color: #888;
-            margin-top: 20px;
-        }
-
-        #progress-bar-container {
-            width: 100%;
-            height: 10px;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background-color: red; /* Default to red */
-            border-radius: 5px;
-        }
-
-        footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        footer ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        footer li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        footer a {
-            text-decoration: none;
-            color: #4CAF50;
-        }
-
-        footer a:hover {
-            color: #333;
-            text-decoration: underline;
-        }
+        /* Add your existing styles here */
     </style>
 </head>
 
 <body>
-     <!-- Help Icon -->
-<div class="help-icon" onclick="showHelp()">&#63;</div>
+    <!-- Help Icon -->
+    <div class="help-icon" onclick="showHelp()">&#63;</div>
     
     <div id="game-container">
         <h1>Welcome to Emojible!</h1>
@@ -190,17 +27,18 @@ justify-content: space-between; /* Push content up and footer down */
         </div>
         <p id="next-puzzle-message"></p> <!-- Come back tomorrow message -->
     </div>
+    
     <!-- Help Popup -->
-<div id="help-popup" class="help-popup">
-    <div class="popup-content">
-        <h2>Help</h2>
-        <p>The progress bar shows if your answer is correct:</p>
-        <ul>
-            <li>Fully green and "Correct!" means your answer is almost there, but it may have too many letters.</li>
-        </ul>
-        <button onclick="closeHelp()">Close</button>
+    <div id="help-popup" class="help-popup">
+        <div class="popup-content">
+            <h2>Help</h2>
+            <p>The progress bar shows if your answer is correct:</p>
+            <ul>
+                <li>Fully green and "Correct!" means your answer is almost there, but it may have too many letters.</li>
+            </ul>
+            <button onclick="closeHelp()">Close</button>
+        </div>
     </div>
-</div>
     
     <!-- Footer -->
     <footer>
@@ -212,20 +50,17 @@ justify-content: space-between; /* Push content up and footer down */
     </footer>        
 
     <script>
-        // Sample emojis and answers
         const puzzles = [
             { emoji: '🦁👑', answer: 'The Lion King' }
         ];
 
         let currentPuzzle = 0;
 
-        // Function to calculate progress
         function calculateProgress(userAnswer, correctAnswer) {
             const userAnswerLower = userAnswer.toLowerCase();
             const correctAnswerLower = correctAnswer.toLowerCase();
             let similarity = 0;
 
-            // Compare letter by letter
             for (let i = 0; i < Math.min(userAnswerLower.length, correctAnswerLower.length); i++) {
                 if (userAnswerLower[i] === correctAnswerLower[i]) {
                     similarity++;
@@ -251,8 +86,6 @@ justify-content: space-between; /* Push content up and footer down */
             }
         }
 
-        
-
         function submitAnswer() {
             const userAnswer = document.getElementById('answer-input').value.trim();
             const correctAnswer = puzzles[currentPuzzle].answer;
@@ -266,14 +99,8 @@ justify-content: space-between; /* Push content up and footer down */
             updateProgressBar(progress);
 
             if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-                localStorage.setItem('puzzleCompleted', 'true');
-                currentPuzzle++;
-                if (currentPuzzle < puzzles.length) {
-                    setTimeout(loadPuzzle, 1000);
-                } else {
-                    document.getElementById('message').textContent = 'You finished the puzzle! 🏆';
-                    document.getElementById('next-puzzle-message').textContent = 'Come back tomorrow for another puzzle!';
-                }
+                localStorage.setItem('puzzleCompletedTime', Date.now().toString());
+                disablePuzzle(24 * 60 * 60 * 1000); // Start 24-hour timer
             }
         }
 
@@ -286,146 +113,92 @@ justify-content: space-between; /* Push content up and footer down */
             }
         });
 
+        // Disable input and button, and show timer
+        function disablePuzzle(remainingTime) {
+            document.getElementById('answer-input').disabled = true;
+            document.getElementById('submit-btn').disabled = true;
+            document.getElementById('next-puzzle-message').textContent = 'Next puzzle in: ';
+            const countdownElement = document.createElement('span');
+            document.getElementById('next-puzzle-message').appendChild(countdownElement);
+
+            function updateTimer() {
+                const hours = Math.floor(remainingTime / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+
+                if (remainingTime > 0) {
+                    remainingTime -= 1000;
+                    setTimeout(updateTimer, 1000);
+                } else {
+                    localStorage.removeItem('puzzleCompletedTime');
+                    location.reload(); // Reload to unlock the puzzle
+                }
+            }
+            updateTimer();
+        }
+
         // Check if the puzzle has been completed before
-          function checkIfPuzzleCompleted() {
-    const completedTime = localStorage.getItem('puzzleCompletedTime');
-    if (completedTime) {
-        const timePassed = Date.now() - parseInt(completedTime, 10);
-        const remainingTime = 24 * 60 * 60 * 1000 - timePassed;
-
-        if (remainingTime > 0) {
-            disablePuzzle(remainingTime);
-            return;
-        } else {
-            localStorage.removeItem('puzzleCompletedTime'); // Reset for the new day
-        }
-    }
-    loadPuzzle();
-}
-
-function disablePuzzle(remainingTime) {
-    document.getElementById('answer-input').disabled = true;
-    document.getElementById('submit-btn').disabled = true;
-    document.getElementById('next-puzzle-message').textContent = 'Next puzzle in: ';
-
-    const countdownElement = document.createElement('span');
-    document.getElementById('next-puzzle-message').appendChild(countdownElement);
-
-    function updateTimer() {
-        const hours = Math.floor(remainingTime / (1000 * 60 * 60));
-        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-        countdownElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
-
-        if (remainingTime > 0) {
-            remainingTime -= 1000;
-            setTimeout(updateTimer, 1000);
-        } else {
-            localStorage.removeItem('puzzleCompletedTime');
-            location.reload(); // Reload to unlock the puzzle
-        }
-    }
-    updateTimer();
-}
-
-// Modify the function where the puzzle is completed
-function submitAnswer() {
-    const userAnswer = document.getElementById('answer-input').value.trim();
-    const correctAnswer = puzzles[currentPuzzle].answer;
-
-    if (!userAnswer) {
-        updateProgressBar(0, 'Try again! ❌');
-        return;
-    }
-
-    const progress = calculateProgress(userAnswer, correctAnswer);
-    updateProgressBar(progress);
-
-    if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
-        localStorage.setItem('puzzleCompletedTime', Date.now().toString());
-        disablePuzzle(24 * 60 * 60 * 1000); // Start 24-hour timer
-    }
-}
-
-window.onload = function () {
-    getTodayPuzzle();
-    checkIfPuzzleCompleted();
-};
-
-        
         function checkIfPuzzleCompleted() {
-            const completed = localStorage.getItem('puzzleCompleted');
-            if (completed === 'true') {
-                document.getElementById('message').textContent = 'You finished the puzzle! 🏆';
-                document.getElementById('next-puzzle-message').textContent = 'Come back tomorrow for another puzzle!';
-            } else {
-                loadPuzzle();
+            const completedTime = localStorage.getItem('puzzleCompletedTime');
+            if (completedTime) {
+                const timePassed = Date.now() - parseInt(completedTime, 10);
+                const remainingTime = 24 * 60 * 60 * 1000 - timePassed;
+
+                if (remainingTime > 0) {
+                    disablePuzzle(remainingTime);
+                    return;
+                } else {
+                    localStorage.removeItem('puzzleCompletedTime'); // Reset for the new day
+                }
+            }
+            loadPuzzle();
+        }
+
+        // Get today's puzzle
+        function getTodayPuzzle() {
+            const currentDate = new Date().toLocaleDateString();
+            const storedDate = localStorage.getItem('currentDate');
+
+            if (storedDate !== currentDate) {
+                localStorage.setItem('puzzleIndex', Math.floor(Math.random() * puzzles.length));
+                storeTodayPuzzle();
             }
         }
 
-        // Function to reset puzzle at midnight local time
-        function checkForMidnightReset() {
-            const currentDate = new Date();
-            const midnight = new Date();
-            midnight.setHours(0, 0, 0, 0); // Set to midnight
-
-            if (currentDate.getTime() >= midnight.getTime()) {
-                localStorage.removeItem('puzzleCompleted');
-                loadPuzzle(); // Reload puzzle
-            }
+        // Store today's date in localStorage
+        function storeTodayPuzzle() {
+            const currentDate = new Date().toLocaleDateString();
+            localStorage.setItem('currentDate', currentDate);
         }
 
-        // Initial setup
-        checkForMidnightReset();
-        checkIfPuzzleCompleted();
-        // Function to show the help popup
-function showHelp() {
-    document.getElementById('help-popup').style.display = 'flex';
-}
+        // Load puzzle based on stored index
+        function loadPuzzle() {
+            const puzzle = puzzles[getPuzzleIndex()];
+            document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
+            document.getElementById('answer-input').value = '';
+            document.getElementById('message').textContent = '';
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('next-puzzle-message').textContent = '';
+        }
 
-// Function to close the help popup
-function closeHelp() {
-    document.getElementById('help-popup').style.display = 'none';
-}
-// Store today's date in localStorage
-function storeTodayPuzzle() {
-    const currentDate = new Date().toLocaleDateString(); // Get today's date in MM/DD/YYYY format
-    localStorage.setItem('currentDate', currentDate);
-}
+        function getPuzzleIndex() {
+            return localStorage.getItem('puzzleIndex') || 0;
+        }
 
-// Get the current puzzle based on the date
-function getTodayPuzzle() {
-    const currentDate = new Date().toLocaleDateString();
-    const storedDate = localStorage.getItem('currentDate');
+        window.onload = function () {
+            getTodayPuzzle();
+            checkIfPuzzleCompleted();
+        };
 
-    // If the date is different, reset the puzzle for the day
-    if (storedDate !== currentDate) {
-        localStorage.setItem('puzzleIndex', Math.floor(Math.random() * puzzles.length)); // Randomize the puzzle each day
-        storeTodayPuzzle();
-    }
-}
+        function showHelp() {
+            document.getElementById('help-popup').style.display = 'flex';
+        }
 
-// Get puzzle index
-function getPuzzleIndex() {
-    return localStorage.getItem('puzzleIndex') || 0; // Default to the first puzzle if not found
-}
-
-function loadPuzzle() {
-    const puzzle = puzzles[getPuzzleIndex()];  // Use the puzzle of the day
-    document.getElementById('emoji-puzzle').textContent = puzzle.emoji;
-    document.getElementById('answer-input').value = '';
-    document.getElementById('message').textContent = '';
-    document.getElementById('progress-bar').style.width = '0%';
-    document.getElementById('next-puzzle-message').textContent = '';
-}
-
-window.onload = function () {
-    getTodayPuzzle();  // Call this to check and update the puzzle when the page loads
-    loadPuzzle();      // Load the puzzle for today
-};
-
+        function closeHelp() {
+            document.getElementById('help-popup').style.display = 'none';
+        }
     </script>
-    
 </body>
 
 </html>
