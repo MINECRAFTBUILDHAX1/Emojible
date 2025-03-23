@@ -211,8 +211,8 @@
          </ul>
      </footer>        
  
-   <script>
-    // Sample puzzles
+     <script>
+    // Sample emojis and answers
     const puzzles = [
         { emoji: '🦁👑', answer: 'The Lion King' }
     ];
@@ -262,11 +262,8 @@
 
         if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
             localStorage.setItem('puzzleCompleted', 'true');
-            localStorage.setItem('puzzleCompletedTime', Date.now()); // Save completion time
-            localStorage.setItem('userAnswer', userAnswer); // Save user's answer
-            disablePuzzle(24 * 60 * 60 * 1000); // Start 24-hour timer
-        } else {
-            localStorage.setItem('userAnswer', userAnswer); // Save user's answer even if incorrect
+            localStorage.setItem('puzzleCompletedTime', Date.now()); // Save the completion time
+            disablePuzzle(24 * 60 * 60 * 1000); // Start the timer (24h)
         }
     }
 
@@ -279,11 +276,6 @@
 
     function checkIfPuzzleCompleted() {
         const completedTime = localStorage.getItem('puzzleCompletedTime');
-        const savedAnswer = localStorage.getItem('userAnswer');
-
-        if (savedAnswer) {
-            document.getElementById('answer-input').value = savedAnswer; // Restore previous answer
-        }
 
         if (completedTime) {
             const timePassed = Date.now() - parseInt(completedTime, 10);
@@ -295,16 +287,15 @@
             } else {
                 localStorage.removeItem('puzzleCompleted');
                 localStorage.removeItem('puzzleCompletedTime');
-                localStorage.removeItem('userAnswer');
             }
         }
-        loadPuzzle(); // Show puzzle if it's a new day
+        loadPuzzle(); // Load puzzle if it's a new day
     }
 
     function disablePuzzle(remainingTime) {
         document.getElementById('answer-input').disabled = true;
         document.getElementById('submit-btn').disabled = true;
-        document.getElementById('next-puzzle-message').textContent = 'You have already completed this puzzle! ✅ Next puzzle in: ';
+        document.getElementById('next-puzzle-message').textContent = 'Next puzzle in: ';
 
         const countdownElement = document.createElement('span');
         document.getElementById('next-puzzle-message').appendChild(countdownElement);
@@ -321,14 +312,10 @@
             } else {
                 localStorage.removeItem('puzzleCompleted');
                 localStorage.removeItem('puzzleCompletedTime');
-                localStorage.removeItem('userAnswer');
                 location.reload();
             }
         }
         updateTimer();
-
-        // Show puzzle but disable input
-        document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
     }
 
     window.onload = function () {
@@ -339,7 +326,6 @@
         document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
     }
 </script>
-
 
  
  </body>
