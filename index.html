@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
  <html lang="en">
  
@@ -211,7 +212,7 @@
          </ul>
      </footer>        
  
-    <script>
+   <script>
     // Sample puzzles
     const puzzles = [
         { emoji: '🦁👑', answer: 'The Lion King' }
@@ -295,7 +296,7 @@
     function disablePuzzle(remainingTime) {
         document.getElementById('answer-input').disabled = true;
         document.getElementById('submit-btn').disabled = true;
-        document.getElementById('next-puzzle-message').textContent = 'You have completed today's puzzle! ✅ Next puzzle in: ';
+        document.getElementById('next-puzzle-message').textContent = 'You have completed today\'s puzzle! ✅ Next puzzle in: ';
 
         const countdownElement = document.createElement('span');
         document.getElementById('next-puzzle-message').appendChild(countdownElement);
@@ -321,18 +322,14 @@
         document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
     }
 
+    function loadPuzzle() {
+        console.log(puzzles); // Check the contents of the puzzles array
+        document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
+    }
+
     window.onload = function () {
         checkIfPuzzleCompleted();
-        loadPuzzle();  // Make sure to load the puzzle when the page loads
-};
-
     };
-
-    function loadPuzzle() {
-    console.log(puzzles); // Check the contents of the puzzles array
-    document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
-}
-
 </script>
 
 
