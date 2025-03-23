@@ -295,7 +295,7 @@
     function disablePuzzle(remainingTime) {
         document.getElementById('answer-input').disabled = true;
         document.getElementById('submit-btn').disabled = true;
-        document.getElementById('next-puzzle-message').textContent = 'You have already completed this puzzle! ✅ Next puzzle in: ';
+        document.getElementById('next-puzzle-message').textContent = 'You have completed today's puzzle! ✅ Next puzzle in: ';
 
         const countdownElement = document.createElement('span');
         document.getElementById('next-puzzle-message').appendChild(countdownElement);
