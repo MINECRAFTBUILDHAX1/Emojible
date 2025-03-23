@@ -323,11 +323,16 @@
 
     window.onload = function () {
         checkIfPuzzleCompleted();
+        loadPuzzle();  // Make sure to load the puzzle when the page loads
+};
+
     };
 
     function loadPuzzle() {
-        document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
-    }
+    console.log(puzzles); // Check the contents of the puzzles array
+    document.getElementById('emoji-puzzle').textContent = puzzles[currentPuzzle].emoji;
+}
+
 </script>
 
 
