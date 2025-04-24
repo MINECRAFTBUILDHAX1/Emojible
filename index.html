@@ -213,13 +213,60 @@
             color: #333;
             text-decoration: underline;
         }
+        .navbar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1001;
+}
+
+.hamburger {
+  font-size: 28px;
+  cursor: pointer;
+  color: #4CAF50;
+  user-select: none;
+}
+
+.nav-links {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-links a {
+  display: block;
+  margin: 8px 0;
+  text-decoration: none;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #333;
+}
+
     </style>
 </head>
 
 <body>
     
 	<a href='https://www.sideprojectors.com/project/56251/emojible' alt='Emojible is for sale at @SideProjectors'><img style='position:fixed;z-index:1000;top:-5px; right: 20px; border: 0;' src='https://www.sideprojectors.com/img/badges/badge_2_red.png' alt='Emojible is sale at @SideProjectors'></a>
-	<!-- Help Icon -->
+	<nav class="navbar">
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <div id="nav-links" class="nav-links">
+    <a href="blog.html">Blog</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</nav>
+
+    <!-- Help Icon -->
     
 
     <div id="game-container">
@@ -437,6 +484,11 @@ function closeHelp() {
     window.onload = function () {
         checkIfPuzzleCompleted();
     };
+    function toggleMenu() {
+  const nav = document.getElementById("nav-links");
+  nav.style.display = nav.style.display === "block" ? "none" : "block";
+}
+
 </script>
 
 
